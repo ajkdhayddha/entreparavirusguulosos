@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualização Critica do Sistema</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #ff0000;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            overflow: hidden;
+            user-select: none;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        /* Estilo das janelas de erro falsas */
+        .erro-fake {
+            position: absolute;
+            width: 300px;
+            background: #f0f0f0;
+            border: 2px solid #000;
+            box-shadow: 5px 5px 0px #888;
+            color: #000;
+            font-family: sans-serif;
+            padding: 10px;
+            z-index: 999;
+        }
+        .erro-header {
+            background: darkblue;
+            color: white;
+            padding: 3px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .erro-body {
+            padding: 15px 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>ERRO FATAL: SYSTEM_FAILURE_0x000293</h1>
+        <p>Aguardando resposta do hardware...</p>
+    </div>
+
+    <script>
+        // Função para gerar coordenadas aleatórias na tela
+        function gerarPosicaoAleatoria() {
+            const x = Math.random() * (window.innerWidth - 300);
+            const y = Math.random() * (window.innerHeight - 150);
+            return { x, y };
+        }
+
+        // Cria uma nova janela de erro na tela
+        function criarJanelaErro() {
+            const erro = document.createElement('div');
+            erro.className = 'erro-fake';
+            
+            const pos = gerarPosicaoAleatoria();
+            erro.style.left = pos.x + 'px';
+            erro.style.top = pos.y + 'px';
+
+            erro.innerHTML = `
+                <div class="erro-header">⚠️ Windows Boot Manager</div>
+                <div class="erro-body">
+                    O sistema detectou um comportamento instável. <br><br>
+                    <strong>Memória corrompida!</strong>
+                </div>
+            `;
+
+            document.body.appendChild(erro);
+        }
+
+        // Inicia o "bug" infinito a cada 150 milissegundos
+        // Isso vai encher a tela de erros rapidamente simulando um travamento
+        const loopTroll = setInterval(criarJanelaErro, 150);
+
+        // Bloqueia o clique direito para a pessoa não inspecionar o código fácil
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
+</body>
+</html>
